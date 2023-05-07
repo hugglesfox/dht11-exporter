@@ -30,7 +30,9 @@ class DhtCollector(Collector):
             try:
                 logging.info("Trying device at path " + dev.sys_path)
                 self._temp_f = open(dev.sys_path + "/in_temp_input", "r")
-                self._humidity_f = open(dev.sys_path + "/in_humidityrelative_input", "r")
+                self._humidity_f = open(
+                    dev.sys_path + "/in_humidityrelative_input", "r"
+                )
                 break
             except IOError:
                 logging.error("Unable to open device")
@@ -59,6 +61,9 @@ class DhtCollector(Collector):
         except (IOError, ValueError):
             # The DHT will sometimes fail to read, in this case using the last
             # known values is fine
+            logging.debug(
+                "The DHT has failed to return a value, this happens sometimes"
+            )
             return
 
     def collect(self) -> Iterable[GaugeMetricFamily]:
