@@ -56,7 +56,7 @@ class DhtCollector(Collector):
             # reason
             self.temp = int(self._temp_f.read()) / 1000
             self.humidity = int(self._humidity_f.read()) / 1000
-        except IOError:
+        except (IOError, ValueError):
             # The DHT will sometimes fail to read, in this case using the last
             # known values is fine
             return
