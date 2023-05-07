@@ -54,8 +54,8 @@ class DhtCollector(Collector):
         try:
             # The linux kernel module multiplies the results by 1000 for some
             # reason
-            self.temp = self._temp_f.read() / 1000
-            self.humidity = self._humidity_f.read() / 1000
+            self.temp = int(self._temp_f.read()) / 1000
+            self.humidity = int(self._humidity_f.read()) / 1000
         except IOError:
             # The DHT will sometimes fail to read, in this case using the last
             # known values is fine
