@@ -1,0 +1,38 @@
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=23.3.0",
+    "mypy>=1.2.0",
+    "flake8>=6.0.0",
+]
+
+[project]
+name = "dht11-exporter"
+version = "0.1.0"
+description = "A prometheus exporter for the DHT11"
+authors = [
+    {name = "Hayley Hughes", email = "hayley@foxes.systems"},
+]
+dependencies = [
+    "starlette>=0.26.1",
+    "prometheus-client>=0.16.0",
+    "pyudev>=0.24.1",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+serve = [
+    "uvicorn>=0.22.0",
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.scripts]
+format = "black src"
+mypy = "mypy src"
+serve = "uvicorn dht_exporter.app:app"
+all = {composite = ["format", "mypy", "serve"]}
