@@ -36,3 +36,10 @@ format = "black src"
 mypy = "mypy src"
 serve = "uvicorn dht_exporter.app:app"
 all = {composite = ["format", "mypy", "serve"]}
+
+[tool.mypy]
+mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
+
+[[tool.mypy.overrides]]
+module = ["pyudev"]
+ignore_missing_imports = true
