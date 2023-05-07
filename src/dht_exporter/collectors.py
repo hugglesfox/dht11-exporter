@@ -28,8 +28,10 @@ class DhtCollector(Collector):
     def __enter__(self):
         for dev in self._iio:
             try:
+                logging.info("Trying device at path " + dev.sys_path)
                 self._temp_f = open(dev.sys_path + "/in_temp_input", "r")
                 self._humidity_f = open(dev.sys_path + "/in_humidityrelative_input", "r")
+                break
             except IOError:
                 logging.error("Unable to open device")
         else:
